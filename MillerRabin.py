@@ -12,22 +12,23 @@ def MillerRabin(n):
 	while ((d & 1) == 0):  
 		d >>= 1 
 		s+=1
+	if(s==0): s=1
 
+	print(s)
 	l=1
 	for i in range(len(semilla)):
 		a   = min(n - 2, semilla[i])
-		actual = pown(a, d, n)
+		actual = pow(a, d, n)
 		if (actual == 1): 
 			continue
 		if (actual == n - 1): 
 			continue
-		print(s)
 		for j in range(1,s):
-			print(actual,i,j)
-			actual = mul(actual, actual, n)
-			l=j
-			print(j)
+			actual = pow(actual,2, n)
+			print(j,actual)
+			l=j+1
 			if (actual == n - 1):
+				l=l-1
 				break
 		print(l)
 		if (l == s):
