@@ -11,9 +11,9 @@ def MillerRabin(n):
 	s=0
 	while ((d & 1) == 0):  
 		d >>= 1 
-		print(d)
 		s+=1
 
+	l=1
 	for i in range(len(semilla)):
 		a   = min(n - 2, semilla[i])
 		actual = pown(a, d, n)
@@ -21,11 +21,15 @@ def MillerRabin(n):
 			continue
 		if (actual == n - 1): 
 			continue
-		for j in range(s):
+		print(s)
+		for j in range(1,s):
+			print(actual,i,j)
 			actual = mul(actual, actual, n)
 			l=j
+			print(j)
 			if (actual == n - 1):
 				break
+		print(l)
 		if (l == s):
 			return False
 	return True
@@ -35,22 +39,22 @@ def mul(a,b,mod):
 	for i in range(63,-1,-1):
 		if (((a >> i) & 1) == 1):
 			break
-		for j in range(i,-1,-1):
-			now <<= 1
-			while (now > mod):
-			 now -= mod
-			if (((a >> j) & 1) == 1):
-			 now += b
-			while (now > mod):
-			 now -= mod
+	for i in range(i,-1,-1):
+		now <<= 1
+		while (now > mod):
+		 now -= mod
+		if (((a >> i) & 1) == 1):
+		 now += b
+		while (now > mod):
+		 now -= mod
 	return now
 
 def pown(a,p,mod):
-	if (p == 0):
-		return 1
-	if (p % 2 == 0):
-		return pown(mul(a, a, mod), p / 2, mod)
-	return mul(pown(a, p - 1, mod), a, mod)
+   if (p == 0):
+    return 1
+   if (p % 2 == 0):
+    return pown(mul(a, a, mod), p / 2, mod)
+   return mul(pown(a, p - 1, mod), a, mod)
 	
 
 if __name__ == '__main__':
